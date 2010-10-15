@@ -21,7 +21,7 @@ The only requirement here is that the javascript files must be within your webro
 
 In your view *.ctp:
 
-    $this->minifyJs->link('minified_javascript');
+    $this->minifyJs->link($minified_javascript);
 
 This will output something like:
 
