@@ -1,0 +1,1 @@
+<?php echo $cached_js;
