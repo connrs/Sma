@@ -1,0 +1,3 @@
+[submodule "vendors/xCSS"]
+	path = vendors/xCSS
+	url = git://github.com/antpaw/xCSS.git
