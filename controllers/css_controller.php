@@ -15,6 +15,7 @@ class CssController extends MinifyAppController {
 		} else {
 			header('Content-Encoding: gzip');
 			header('Content-Length: '.strlen($cached_string));
+			header('Content-Type: text/css');
 		}
 		$this->set('cached_js',$cached_string);
 		$this->render('index');
