@@ -1,6 +1,8 @@
 <?php
 class MinifyAppController extends Controller {
 	var $components = array('RequestHandler');
+	var $helpers = false;
+	var $uses = false;
 	
 	function beforeFilter() {
 		if(isset($this->Auth)) $this->Auth->allow('*');
@@ -10,6 +12,10 @@ class MinifyAppController extends Controller {
 			'path' => CACHE.'views'.DS,
 			'prefix' => 'cake_minify_'
 		));
+		return true;
 	}
+	
+	function beforeRender() {return true;}
+	
 }
 ?>
