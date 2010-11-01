@@ -56,7 +56,11 @@ class MinifyComponent extends Object {
 					$css_string .= file_get_contents($source_file_path);
 				} else {trigger_error(sprintf('File %s not found while calling Minify::js()',$source_file_path));}
 			}
-			$css_comp = new CSSCompression($css_string);
+			$compression_options = array(
+				'rm-multi-define'=>false,
+				'background-combine'=>false
+			);
+			$css_comp = new CSSCompression($css_string,$compression_options);
 			$css_string = $css_comp->css;
 			if(!empty($css_string)) {
 				$cache_string = gzencode($css_string,9);
