@@ -1,9 +1,9 @@
 <?php
-class MinifyAppController extends Controller {
+class MinifyAppController extends AppController {
 	var $components = array('RequestHandler');
-	var $helpers = false;
-	var $uses = false;
-	
+	var $helpers = null;
+	var $uses = null;
+
 	function beforeFilter() {
 		if(isset($this->Auth)) $this->Auth->allow('*');
 		Cache::config('minify', array(
@@ -14,8 +14,7 @@ class MinifyAppController extends Controller {
 		));
 		return true;
 	}
-	
+
 	function beforeRender() {return true;}
-	
 }
 ?>
