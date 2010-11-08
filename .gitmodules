@@ -1,3 +1,3 @@
-[submodule "vendors/css-compressor"]
-	path = vendors/css-compressor
-	url = git://github.com/codenothing/css-compressor.git
+[submodule "vendors/cssfast"]
+	path = vendors/cssfast
+	url = git@github.com:connrs/CSSFast.git

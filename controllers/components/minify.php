@@ -1,6 +1,6 @@
 <?php
 App::import('Vendor','Minify.jsmin');
-App::import('Vendor','Minify.csscompressor');
+App::import('Vendor','Minify.cssfast');
 Cache::config('minify', array(
 	'engine' => 'File',
 	'duration'=> '+2 days',
@@ -56,12 +56,8 @@ class MinifyComponent extends Object {
 					$css_string .= file_get_contents($source_file_path);
 				} else {trigger_error(sprintf('File %s not found while calling Minify::js()',$source_file_path));}
 			}
-			$compression_options = array(
-				'rm-multi-define'=>false,
-				'background-combine'=>false
-			);
-			$css_comp = new CSSCompression($css_string,$compression_options);
-			$css_string = $css_comp->css;
+			$css_fast = new CSSFast($css_string);
+			$css_string = $css_fast->outputFast();
 			if(!empty($css_string)) {
 				$cache_string = gzencode($css_string,9);
 				Cache::write($cache_file_key,$cache_string,'minify');
