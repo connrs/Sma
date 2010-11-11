@@ -4,6 +4,8 @@ class MinifyAppController extends AppController {
 	var $helpers = null;
 	var $uses = null;
 
+	function __mergeVars() {}
+
 	function beforeFilter() {
 		if(isset($this->Auth)) $this->Auth->allow('*');
 		Cache::config('minify', array(
@@ -17,4 +19,3 @@ class MinifyAppController extends AppController {
 
 	function beforeRender() {return true;}
 }
-?>

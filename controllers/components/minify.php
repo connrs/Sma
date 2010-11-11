@@ -19,10 +19,14 @@ class MinifyComponent extends Object {
 			return $cache_md5;
 		} else {
 			$cache_string = '';
-			foreach($file_list as $file) {
+			foreach($file_list as $x=>$file) {
 				$source_file_path = APP.'webroot'.DS.$file;
 				if(file_exists($source_file_path)) { //If the file exists, minify it and add it to the string
-					$minified_string = trim(JSMin::minify(file_get_contents($source_file_path)));
+					if(!preg_match('/[a-z]+/',$x)) {
+						$minified_string = trim(JSMin::minify(file_get_contents($source_file_path)));
+					} else {
+						$minified_string = trim(file_get_contents($source_file_path));
+					}
 					if(!empty($minified_string)) {
 						$cache_string .= $minified_string;
 					} else {
