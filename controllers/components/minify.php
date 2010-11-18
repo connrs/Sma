@@ -57,7 +57,7 @@ class MinifyComponent extends Object {
 			foreach($file_list as $file) {
 				$source_file_path = APP.'webroot'.DS.$file;
 				if(file_exists($source_file_path)) { //If the file exists, minify it and add it to the string
-					$css_string .= file_get_contents($source_file_path);
+					$css_string .= file_get_contents($source_file_path)."\n";
 				} else {trigger_error(sprintf('File %s not found while calling Minify::js()',$source_file_path));}
 			}
 			$css_fast = new CSSFast($css_string);

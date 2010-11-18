@@ -3,6 +3,7 @@ class MinifyAppController extends AppController {
 	var $components = array('RequestHandler');
 	var $helpers = null;
 	var $uses = null;
+	var $view = 'View';
 
 	function __mergeVars() {}
 
