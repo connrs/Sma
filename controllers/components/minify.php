@@ -16,7 +16,8 @@ class MinifyComponent extends Object {
 		$cache_md5 = md5(serialize($file_list));
 		$cache_file_key = $cache_md5.'_js';
 		if(Cache::read($cache_file_key,'minify')) { //If there is a file, return the md5 for use in the controller
-			return $cache_md5;
+			$cache_mod_date = filectime(CACHE.'views'.DS.'cake_minify_'.$cache_file_key);
+			return $cache_md5.'?'.$cache_mod_date;
 		} else {
 			$cache_string = '';
 			foreach($file_list as $x=>$file) {
@@ -50,7 +51,8 @@ class MinifyComponent extends Object {
 		$cache_md5 = md5(serialize($file_list));
 		$cache_file_key = $cache_md5.'_css';
 		if(Cache::read($cache_file_key,'minify')) { //If there is a file, return the md5 for use in the controller
-			return $cache_md5;
+			$cache_mod_date = filectime(CACHE.'views'.DS.'cake_minify_'.$cache_file_key);
+			return $cache_md5.'?'.$cache_mod_date;
 		} else {
 			$cache_string = '';
 			$css_string = '';

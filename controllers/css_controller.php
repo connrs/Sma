@@ -16,8 +16,14 @@ class CssController extends MinifyAppController {
 			header('Content-Encoding: gzip');
 			header('Content-Length: '.strlen($cached_string));
 			header('Content-Type: text/css');
+			header('Cache-Control: public, max-age=2592000');
+			header('Expires: '.gmdate('D, d M Y H:i:s',time()+2592000));
 		}
-		$this->set('cached_js',$cached_string);
-		$this->render('index');
+		if($_SERVER['REQUEST_METHOD']=='HEAD') {
+			exit;
+		} else {
+			$this->set('cached_js',$cached_string);
+			$this->render('index');
+		}
 	}
 }
