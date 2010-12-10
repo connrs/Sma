@@ -1,5 +1,9 @@
 #What is this?
 
+##Some speed improvements
+
+I've added a page to the wiki regarding how to [take advantage of If-Modified-Since headers](https://github.com/connrs/minify/wiki/Take-advantage-of-faster-recache-refresh-responses-with-If-Modified-Since-headers) to get every last bit of performance from minified resources
+
 This is a simple Cake 1.3 plugin that you can drop in to your plugins directory (or git submodule it baby) and automatically start combining, minifying and compressing your Javascript and CSS.
 
 At this stage, I only have javascript functionality but I will get this sorted in no time.
