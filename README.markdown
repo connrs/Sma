@@ -11,7 +11,7 @@ At this stage, I only have javascript functionality but I will get this sorted i
 To use this from within a controller (or AppController if you want to define it globally), you need to add:
 
 * 'Minify.Minify' to $components
-* 'Minify.MinifyJs' (& eventually 'Minify.MinifyCss') to $helpers
+* 'Minify.Minify' to $helpers
 
 You're using the component to prepare the files in the controller and then passing a variable to the view so that the helper can output the HTML that you'll place within your template.
 
@@ -25,7 +25,8 @@ The only requirement here is that the javascript files must be within your webro
 
 In your view *.ctp:
 
-    $this->minifyJs->link($minified_javascript);
+    $this->Minify->link($minified_javascript);
+		or $minify->link($minified_javascript);
 
 This will output something like:
 
@@ -33,12 +34,11 @@ This will output something like:
 
 As long as you don't have any insane routes configured, this will automatically function and browsers pulling that URL will get a minified and gzipped piece of content.
 
-Caching is used to ensure that the script isn't continually minifying and compressing; the only thing returned from Minify::js() is the token used by the MinifyJs helper that outputs the HTML.
+Caching is used to ensure that the script isn't continually minifying and compressing; the only thing returned from Minify::js() is the token used by the Minify helper that outputs the HTML.
 
 #Coming soon
 
-CSS support with possible SASS? I need to research where I think it will go and if it's worth the work.
-
+CSSFast plugin does some limited compression but I hope to extend the capabilities of thos plugin itself. I'm looking into Less and OOCSS and hope to come to some sort of decision soon. Although I honestly prefer to optimise my own CSS myself.
 
 #Acknowledgements
 
