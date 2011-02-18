@@ -1,11 +1,11 @@
 <?php
-class CssController extends MinifyAppController {
-	var $name = 'Css';
+class TplController extends MinifyAppController {
+	var $name = 'Tpl';
 	var $uses = null;
 
 	function beforeFilter() {
 		parent::beforeFilter();
-		$this->RequestHandler->respondAs('css');
+		$this->RequestHandler->respondAs('javascript');
 	}
 
 	function gz($cache_md5=null) {
@@ -13,19 +13,11 @@ class CssController extends MinifyAppController {
 		$param_ts = end(array_keys($_GET));
 		$param_date = gmdate('D, d M Y H:i:s e',$param_ts);
 		$f_param_date = gmdate('D, d M Y H:i:s e',$param_ts+$time_buffer);
-		$cached_string = Cache::read($cache_md5.'_css','minify');
+		$cached_string = Cache::read($cache_md5.'_tpl','minify');
 		if(empty($cached_string)) {
-			$cached_string = '/*Error loading minified CSS*/';
+			$cached_string = '//Error loading minified Javascript';
 		} else {
-			header('Content-Encoding: gzip');
-			header('Content-Length: '.strlen($cached_string));
-			header('Content-Type: text/css');
-			header('Cache-Control: public, max-age='.$time_buffer);
-			header('Expires: '.$f_param_date);
-			header('Last-Modified: '.$param_date);
 			if (!empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-				Configure::write('debug',1);
-				$this->log($_SERVER['HTTP_IF_MODIFIED_SINCE']);
 				$client_date = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
 				$file_date = (integer) $param_ts;
 				if ($client_date >= $file_date) {
@@ -33,6 +25,12 @@ class CssController extends MinifyAppController {
 					exit;
 				}
 			}
+			header('Content-Encoding: gzip');
+			header('Content-Length: '.strlen($cached_string));
+			header('Content-Type: application/x-javascript');
+			header('Cache-Control: public, max-age='.$time_buffer);
+			header('Expires: '.$f_param_date);
+			header('Last-Modified: '.$param_date);
 		}
 		$this->set('cached_js',$cached_string);
 		$this->render('index');

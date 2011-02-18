@@ -19,13 +19,17 @@ class JsController extends MinifyAppController {
 		} else {
 			header('Content-Encoding: gzip');
 			header('Content-Length: '.strlen($cached_string));
-			header('Content-Type: application/javascript');
+			header('Content-Type: application/x-javascript');
 			header('Cache-Control: public, max-age='.$time_buffer);
 			header('Expires: '.$f_param_date);
 			header('Last-Modified: '.$param_date);
-			if(($_SERVER['REQUEST_METHOD']=='HEAD') || (!empty($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $_SERVER['HTTP_IF_MODIFIED_SINCE']==$param_date)) {
-				header('HTTP/1.1 304 Not Modified');
-				exit;
+			if (!empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+				$client_date = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
+				$file_date = (integer) $param_ts;
+				if ($client_date >= $file_date) {
+					header('HTTP/1.1 304 Not Modified');
+					exit;
+				}
 			}
 		}
 		$this->set('cached_js',$cached_string);

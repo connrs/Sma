@@ -13,6 +13,14 @@ class MinifyHelper extends AppHelper {
 		return $output;
 	}
 
+	function js_tpl($string,$html5=true,$compression_type='gz') {
+		if (empty($string)) return '';
+		$url = $this->url(array('plugin'=>'minify','controller'=>'tpl','action'=>$compression_type,$string));
+		if(!$html5) $output = sprintf('<script type="text/javascript" src="%s"></script>',$url);
+		else $output = sprintf('<script src="%s"></script>',$url);
+		return $output;
+	}
+
 	function css_link($string,$media='',$html5=true,$compression_type='gz') {
 		if(empty($string)) return '';
 		if(!empty($media)) $media = " media=\"$media\"";
