@@ -10,7 +10,7 @@ class JsController extends MinifyAppController {
 
 	function gz($cache_md5=null) {
 		$time_buffer = 2592000;
-		$param_ts = end(array_keys($_GET));
+		$param_ts = (int) end(array_keys($_GET));
 		$param_date = gmdate('D, d M Y H:i:s e',$param_ts);
 		$f_param_date = gmdate('D, d M Y H:i:s e',$param_ts+$time_buffer);
 		$cached_string = Cache::read($cache_md5.'_js','minify');
