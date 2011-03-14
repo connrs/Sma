@@ -29,12 +29,13 @@ class MinifyComponent extends Object {
 						$minified_string = trim(file_get_contents($source_file_path));
 					}
 					if (!empty($minified_string)) {
-						$cache_string .= $minified_string;
+						$cache_string .= $minified_string."\n";
 					} else {
 						trigger_error(sprintf('File %s was empty while calling JSMin::minify()',$source_file_path));
 					}
 				} else {trigger_error(sprintf('File %s not found while calling Minify::js()',$source_file_path));}
 			}
+			$cache_string = trim($cache_string);
 			if (!empty($cache_string)) { //Provided the string isn't empty, cache it and then return the md5 for use in the controller
 				$cache_string = gzencode($cache_string,9);
 				Cache::write($cache_file_key,$cache_string,'minify');
