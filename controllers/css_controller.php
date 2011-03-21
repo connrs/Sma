@@ -25,7 +25,6 @@ class CssController extends MinifyAppController {
 			header('Last-Modified: '.$param_date);
 			if (!empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
 				Configure::write('debug',1);
-				$this->log($_SERVER['HTTP_IF_MODIFIED_SINCE']);
 				$client_date = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
 				$file_date = (integer) $param_ts;
 				if ($client_date >= $file_date) {
