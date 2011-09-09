@@ -1,4 +1,4 @@
-#Sma
+#Små
 
 This is an asset packager plugin for CakePHP. It is a rewrite of the earlier Minify with more readable code, a different method and tests on the way.
 
