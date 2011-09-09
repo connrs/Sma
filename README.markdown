@@ -87,6 +87,8 @@ It is possible to set custom paths and cache configurations. I will document it 
 
 Just drop it in as a gitsubmodule to your app/plugins directory or download the zipfile from the download link here on Github. There are 2 directories which you need to create: app/tmp/sma and app/webroot/assets
 
+There is a sample.htaccess included that you should adapt and potentially place inside your assets folder. It is a stripped down version of the HTML5 Boilerplate .htaccess file. To be honest, you should consider adding the HTML5 boilerplate generally to your webroot or your server configuration so that it is less of a performance hit on the HTTP server.
+
 #Coming soon
 
 CSSFast plugin does some limited compression but I hope to extend the capabilities of thos plugin itself. I'm looking into Less and OOCSS and hope to come to some sort of decision soon. Although I honestly prefer to optimise my own CSS myself.
