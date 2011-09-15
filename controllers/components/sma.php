@@ -1,6 +1,6 @@
 <?php
-App::import('Vendor','Minify.jsmin');
-App::import('Vendor','Minify.cssfast');
+App::import('Vendor','Sma.jsmin');
+App::import('Vendor','Sma.cssfast');
 class SmaComponent extends Object {
 	var $baseAssetCachePath;
 	var $cacheConfiguration;
