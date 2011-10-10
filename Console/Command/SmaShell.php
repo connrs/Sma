@@ -1,23 +1,24 @@
 <?php
-class SmaShell extends Shell {   
-    var $assetPath;
+App::uses('Folder', 'Utility');
+class SmaShell extends Shell {
+    public $assetPath;
 
-    function main() {
+    public function main() {
         $this->help();
     }
 
-    function help() {
+    public function help() {
         $this->out('Små Clean:');
         $this->out("cake sma cleanAssets - Clean minified assets.");
         $this->hr();
     }
 
-    function initialize() {
+    public function initialize() {
         $this->assetPath = WWW_ROOT.DS.'assets';
         return true;
     }
 
-    function __clean($path) {
+    public function __clean($path) {
         $folder = new Folder($path);
         $tree = $folder->tree($path, false);
         foreach ($tree as $files) {
@@ -31,7 +32,7 @@ class SmaShell extends Shell {
         return;
     }
 
-    function cleanAssets() {
+    public function cleanAssets() {
         $assetPath = $this->assetPath;
         $this->__clean($assetPath);
         $this->out('Assets cache cleaned.');
