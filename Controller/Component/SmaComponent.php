@@ -12,12 +12,15 @@ class SmaComponent extends Component {
     public $newCacheTag;
 
     function __construct(ComponentCollection $collection, $settings = array()) {
+        if (!is_array($settings)) {
+            $settings = array();
+        }
         parent::__construct($collection, $settings);
         $_settings = array(
             'baseAssetCachePath' => WWW_ROOT . 'assets',
             'errorLogFile' => LOGS . 'sma.log'
         );
-        $this->_set(array_merge($_settings, $settings));
+        $this->_set($settings + $_settings);
         $this->newCacheTag = $this->genCacheTag();
         $this->currentCacheInfo = $this->getCurrentCacheInfo();
     }
@@ -130,25 +133,44 @@ class SmaComponent extends Component {
         }
         return $content;
     }
+
+    /**
+     * If the filename contains .min. (eg. example.min.js) then don't minify
+     * 
+     * @param mixed $assetFilename 
+     * @access private
+     * @return void
+     */
     private function noMinifyAsset($assetFilename) {
         return is_string($assetFilename) && preg_match('/\.min\./', $assetFilename);
     }
+
+    /**
+     * The main processing loop. This method will process through a single file list,
+     * determine if they are to be concatenated, minified, or returned as-is.
+     * 
+     * @param array $assetList - an array of path strings and sub arrays also containing path strings
+     * @param string $type: Either 'js' or 'css'
+     * @access private
+     * @return The minified content of the file list
+     */
     private function processFiles($assetList, $type) {
         $content = "";
         foreach ($assetList as $key => $asset) {
-            $assetIsMultipleFileList = is_array($asset);
-            $isTemplateList = $assetIsMultipleFileList && is_string($key);
             $assetContent = "";
+            $assetIsMultipleFileList = is_array($asset);
             if ($assetIsMultipleFileList) {
+                $isTemplateList = count($asset) == 1 && is_string(key($asset));
                 if ($isTemplateList) {
-                    $variableName = Inflector::variable($key);
+                    $tKey = key($asset);
+                    $variableName = Inflector::variable($tKey);
                     $templateList = array();
-                    $head = $asset['_head'];
-                    $foot = $asset['_foot'];
-                    unset($asset['_head']);
-                    unset($asset['_foot']);
-                    foreach ($asset as $tKey => $mAsset) {
-                        $templateList[$tKey] = $this->getAssetContent($mAsset);
+                    $head = $asset[$tKey]['_head'];
+                    $foot = $asset[$tKey]['_foot'];
+                    unset($asset[$tKey]['_head']);
+                    unset($asset[$tKey]['_foot']);
+                    foreach ($asset[$tKey] as $tKey => $tAsset) {
+                        $templateList[$tKey] = $this->getAssetContent($tAsset);
                     }
                     $assetContent .= $this->getAssetContent($head);
                     $assetContent .= sprintf('var %s=%s;', $variableName, json_encode($templateList));

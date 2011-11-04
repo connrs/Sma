@@ -49,18 +49,20 @@ You can also build templates and combine them in to an object assigned to a spec
         'stuff' => array(
             'sample1.js',
             'anothernormaljsfile.js',
-            'templates' => array(
-                '_head' => 'head.js'
-                '_foot' => 'foot.js'
-                'noteView' => 'note_view.js',
-                'tagView' => 'tag_view.js'
+            array(
+                'tplVariable' => array(
+                    '_head' => 'head.js'
+                    '_foot' => 'foot.js'
+                    'noteView' => 'note_view.js',
+                    'tagView' => 'tag_view.js'
+                )
             )
         )
     );
 
 The stuff file will contain a templates var like this:
 
-    var templates = {
+    var tplVariable = {
         noteView: "/* template file as string here */",
         tagView: "/* template file as string here */"
     };
