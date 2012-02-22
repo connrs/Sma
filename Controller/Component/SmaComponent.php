@@ -108,10 +108,14 @@ class SmaComponent extends Component {
         }
     }
     private function minifyAssetContent($content, $type) {
-        if ($type == 'js') {
-            return $this->_jsMinifyAssetContent($content);
-        } else if ($type == 'css') {
-            return $this->_cssMinifyAssetContent($content);
+        if (Configure::read('debug') == 0) {
+            if ($type == 'js') {
+                return $this->_jsMinifyAssetContent($content);
+            } else if ($type == 'css') {
+                return $this->_cssMinifyAssetContent($content);
+            }
+        } else {
+            return $content;
         }
     }
     private function _jsMinifyAssetContent($content) {
